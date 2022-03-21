@@ -1,10 +1,15 @@
 package model
 
-import "time"
+import (
+	"tf-sso/util/common"
+	"time"
+
+	"github.com/labstack/echo/v4"
+)
 
 type User struct {
 	Owner     string    `xorm:"varchar(100) notnull pk" json:"owner"`
-	Name      string    `xorm:"varchar(100) notnull pk" json:"name"`
+	Username  string    `xorm:"varchar(100) notnull pk" json:"username"`
 	CreatedAt int64     `xorm:"created" json:"created"`
 	UpdatedAt int64     `xorm:"updated" json:"updated"`
 	DeletedAt time.Time `xorm:"deleted"`
@@ -29,4 +34,36 @@ type User struct {
 
 	LastSigninTime string `xorm:"varchar(100)" json:"lastSigninTime"`
 	LastSigninIp   string `xorm:"varchar(100)" json:"lastSigninIp"`
+}
+
+func (u *User) Add() error {
+	_, err := Engine.Insert(u)
+	return err
+}
+
+func (u *User) Delete() error {
+	_, err := Engine.Delete(u)
+	return err
+}
+
+func (u *User) Get() error {
+	_, err := Engine.Get(u)
+	return err
+}
+
+func (u *User) Update() error {
+	_, err := Engine.ID(u.ID).Update(u)
+	return err
+}
+
+func (u *User) Count() (int64, error) {
+	total, err := Engine.Count(u)
+	return total, err
+}
+
+func GetUsers(c echo.Context) (*[]User, error) {
+	pageSize, offset := common.Paginate(c)
+	users := make([]User, pageSize)
+	err := Engine.Limit(pageSize, offset).Find(&users)
+	return &users, err
 }

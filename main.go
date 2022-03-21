@@ -1,7 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"tf-sso/model"
+	"tf-sso/router"
+	"tf-sso/util/log"
+)
+
+func init() {
+	log.Init()
+	model.Init()
+}
 
 func main() {
-	fmt.Println("Hello, World")
+	e := router.Init()
+	e.Logger.Fatal(e.Start(":8000"))
 }
