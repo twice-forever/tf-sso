@@ -37,3 +37,30 @@ func CreateUser(c echo.Context) error {
 		Msg:  "添加成功",
 	})
 }
+
+func DeleteUser(c echo.Context) error {
+	user := new(model.User)
+	err := c.Bind(user)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, common.Response{
+			Code: http.StatusInternalServerError,
+			Msg:  err.Error(),
+		})
+	}
+
+	if err := c.Validate(user); err != nil {
+		return err
+	}
+
+	err = user.Delete()
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, common.Response{
+			Code: http.StatusInternalServerError,
+			Msg:  err.Error(),
+		})
+	}
+	return c.JSON(http.StatusOK, common.Response{
+		Code: http.StatusInternalServerError,
+		Msg:  "删除成功",
+	})
+}
