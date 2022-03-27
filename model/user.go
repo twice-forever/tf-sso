@@ -2,17 +2,15 @@ package model
 
 import (
 	"tf-sso/util/common"
-	"time"
 
 	"github.com/labstack/echo/v4"
 )
 
 type User struct {
-	Owner     string    `xorm:"varchar(100) notnull pk" json:"owner"`
-	Username  string    `xorm:"varchar(100) notnull pk" json:"username"`
-	CreatedAt int64     `xorm:"created" json:"created"`
-	UpdatedAt int64     `xorm:"updated" json:"updated"`
-	DeletedAt time.Time `xorm:"deleted"`
+	Owner     string `xorm:"varchar(100) notnull pk" json:"owner"`
+	Username  string `xorm:"varchar(100) notnull pk" json:"username"`
+	CreatedAt int64  `xorm:"created" json:"created"`
+	UpdatedAt int64  `xorm:"updated" json:"updated"`
 
 	ID            string `xorm:"varchar(100) index" json:"id" param:"id" validate:"required"` // 用户id
 	Type          string `xorm:"varchar(100)" json:"type"`                                    // 用户类型
@@ -63,7 +61,7 @@ func (u *User) Count() (int64, error) {
 
 func GetUsers(c echo.Context) (*[]User, error) {
 	pageSize, offset := common.Paginate(c)
-	users := make([]User, pageSize)
+	users := make([]User, 0, pageSize)
 	err := Engine.Limit(pageSize, offset).Find(&users)
 	return &users, err
 }

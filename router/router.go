@@ -18,6 +18,8 @@ func Init() *echo.Echo {
 	apiGroup := e.Group("/api")
 	apiGroup.POST("/user", api.CreateUser)
 	apiGroup.DELETE("/user/:id", api.DeleteUser)
+	apiGroup.GET("/user/:id", api.GetUser)
+	apiGroup.GET("/user", api.GetUsers)
 
 	return e
 }
