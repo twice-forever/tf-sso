@@ -15,11 +15,18 @@ func Init() *echo.Echo {
 	e.Use(middleware.Recover())
 	e.Validator = &common.CustomValidator{Validator: validator.New()}
 
+	loginGroup := e.Group("/api")
+	{
+		loginGroup.POST("/login", api.Login)
+	}
+
 	apiGroup := e.Group("/api")
-	apiGroup.POST("/user", api.CreateUser)
-	apiGroup.DELETE("/user/:id", api.DeleteUser)
-	apiGroup.GET("/user/:id", api.GetUser)
-	apiGroup.GET("/user", api.GetUsers)
+	{
+		apiGroup.POST("/user", api.CreateUser)
+		apiGroup.DELETE("/user/:id", api.DeleteUser)
+		apiGroup.GET("/user/:id", api.GetUser)
+		apiGroup.GET("/user", api.GetUsers)
+	}
 
 	return e
 }
