@@ -68,13 +68,13 @@ func DeleteUser(c echo.Context) error {
 func GetUser(c echo.Context) error {
 	user := new(model.User)
 	if err := c.Bind(user); err != nil {
-		c.JSON(http.StatusBadRequest, common.Response{
+		return c.JSON(http.StatusBadRequest, common.Response{
 			Code: http.StatusBadRequest,
 			Msg:  err.Error(),
 		})
 	}
 	if err := user.Get(); err != nil {
-		c.JSON(http.StatusInternalServerError, common.Response{
+		return c.JSON(http.StatusInternalServerError, common.Response{
 			Code: http.StatusInternalServerError,
 			Msg:  err.Error(),
 		})

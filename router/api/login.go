@@ -12,7 +12,7 @@ import (
 func Login(c echo.Context) error {
 	login := new(common.Login)
 	if err := c.Bind(login); err != nil {
-		c.JSON(http.StatusInternalServerError, common.Response{
+		return c.JSON(http.StatusInternalServerError, common.Response{
 			Code: http.StatusInternalServerError,
 			Msg:  err.Error(),
 		})
@@ -24,7 +24,7 @@ func Login(c echo.Context) error {
 
 	user := model.User{Username: login.Username}
 	if err := user.Get(); err != nil {
-		c.JSON(http.StatusInternalServerError, common.Response{
+		return c.JSON(http.StatusInternalServerError, common.Response{
 			Code: http.StatusInternalServerError,
 			Msg:  "登录失败,请重试!",
 		})
@@ -32,7 +32,7 @@ func Login(c echo.Context) error {
 
 	hashPassword := common.GeneratePassHash(login.Password, user.PasswordSalt)
 	if hashPassword != user.Password {
-		c.JSON(http.StatusInternalServerError, common.Response{
+		return c.JSON(http.StatusInternalServerError, common.Response{
 			Code: http.StatusInternalServerError,
 			Msg:  "登录失败,请重试!",
 		})
