@@ -18,6 +18,7 @@ func Init() *echo.Echo {
 	loginGroup := e.Group("/api")
 	{
 		loginGroup.POST("/login", api.Login)
+		loginGroup.GET("/logout", api.Logout)
 	}
 
 	apiGroup := e.Group("/api")
