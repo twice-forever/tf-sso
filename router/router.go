@@ -7,6 +7,8 @@ import (
 	"github.com/go-playground/validator"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
+
+	md "tf-sso/middleware"
 )
 
 func Init() *echo.Echo {
@@ -22,6 +24,7 @@ func Init() *echo.Echo {
 	}
 
 	apiGroup := e.Group("/api")
+	apiGroup.Use(md.Auth)
 	{
 		apiGroup.POST("/user", api.CreateUser)
 		apiGroup.DELETE("/user/:id", api.DeleteUser)
