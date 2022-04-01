@@ -1,15 +1,14 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <RouterHolder />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import RouterHolder from './view/routerHolder.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    RouterHolder
   }
 }
 </script>
