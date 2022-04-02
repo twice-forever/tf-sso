@@ -1,14 +1,29 @@
 <template>
-  <hello-world></hello-world>
+  <div class="common-layout">
+    <el-container>
+      <el-aside width="200px">Aside</el-aside>
+      <el-container>
+        <el-header>Header</el-header>
+        <el-main>Main</el-main>
+        <el-footer>Footer</el-footer>
+      </el-container>
+    </el-container>
+  </div>
 </template>
 
 <script>
-import HelloWorld from "@/components/HelloWorld.vue";
+// import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
   name: "UserManage",
   components: {
-    HelloWorld,
+    // HelloWorld,
   },
 };
 </script>
+
+<style>
+.common-layout .el-main {
+  height: calc(100vh - 120px);
+}
+</style>
