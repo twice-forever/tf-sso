@@ -4,9 +4,7 @@
       <el-aside width="200px"><Menu /></el-aside>
       <el-container>
         <el-header>Header</el-header>
-        <el-main>
-          
-        </el-main>
+        <el-main> </el-main>
         <el-footer>Footer</el-footer>
       </el-container>
     </el-container>
@@ -27,5 +25,9 @@ export default {
 <style>
 .common-layout .el-main {
   height: calc(100vh - 120px);
+}
+.common-layout .el-aside {
+  display: flex;
+  flex-direction: column;
 }
 </style>
